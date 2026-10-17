@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tetris</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <style>
+        body {
+            background: url('/assets/background.png') center/cover no-repeat;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 30, 0.85);
+            z-index: -1;
+        }
+        #game-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        #next-piece-panel {
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        #next-piece-panel .stat-label {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        #tetris-board {
+            border: 2px solid rgba(0, 240, 240, 0.3);
+            box-shadow: 0 0 30px rgba(0, 240, 240, 0.15), inset 0 0 60px rgba(0, 0, 0, 0.5);
+        }
+        #game-over-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #game-over-overlay.show {
+            display: flex;
+        }
+        #game-over-overlay h2 {
+            font-size: 36px;
+            color: #ff3333;
+            letter-spacing: 8px;
+            margin-bottom: 12px;
+        }
+        #game-over-overlay .final-score {
+            font-size: 20px;
+            color: #ccc;
+            margin-bottom: 24px;
+        }
+        .restart-btn {
+            background: #3d3d6e;
+            color: #fff;
+            border: none;
+            padding: 12px 32px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 8px;
+        }
+        .restart-btn:hover {
+            background: #5a5a9e;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-header">
+            <h1>TETRIS</h1>
+        </div>
+
+        <div id="next-piece-panel">
+            <div class="stat-label">NEXT PIECE</div>
+            <canvas id="next-piece" width="100" height="54"></canvas>
+        </div>
+
+        <div id="hud-panel">
+            <div class="stat">
+                <div class="stat-label">SCORE</div>
+                <div class="stat-value" id="score">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">LINES</div>
+                <div class="stat-value" id="lines">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">LEVEL</div>
+                <div class="stat-value" id="level">1</div>
+            </div>
+        </div>
+
+        <div id="canvas-wrapper" style="position: relative; display: inline-block;">
+            <canvas id="tetris-board" width="300" height="600"></canvas>
+            <div id="game-over-overlay">
+                <h2>GAME OVER</h2>
+                <div class="final-score">SCORE: <span id="final-score">0</span></div>
+                <button class="restart-btn" id="btn-restart">REINICIAR</button>
+            </div>
+        </div>
+
+        <div id="controls">
+            <button class="btn" id="btn-start">INICIAR</button>
+            <button class="btn" id="btn-pause">PAUSAR</button>
+            <div class="controls-info">
+                Flechas: mover/rotar/caer | Espacio: hard drop | ESC: pause
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
